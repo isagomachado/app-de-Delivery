@@ -6,4 +6,4 @@ const login = Router();
 login.route('/')
   .post(LoginController.login);
 
-module.exports = login
+module.exports = login;

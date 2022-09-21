@@ -15,8 +15,8 @@ class LoginService {
     if (!user || user.password !== hashPass) {
       throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 401);
     };
-    
-    return user
+
+    return user;
   }
 }
 
