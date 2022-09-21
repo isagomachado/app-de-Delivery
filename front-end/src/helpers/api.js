@@ -10,6 +10,13 @@ export const loginUser = async ({ email, password }) => {
   console.log(response.data);
   return response;
 };
+
+export const registerUser = async ({ email, password, name }) => {
+  const response = await api
+    .post('/register', { email, password, name }).catch((error) => error.response.data);
+  return response;
+};
+
 export const products = async () => {
   api.get('/products');
 };

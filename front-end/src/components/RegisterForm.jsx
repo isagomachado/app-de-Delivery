@@ -17,6 +17,13 @@ export default function RegisterForm() {
     // if (!isValid) return false;
   };
 
+  const regex = /\S+@\S+\.\S+/;
+  const numberTwelve = 12;
+  const numberSix = 6;
+  const checkName = () => dataRegister.name.length >= numberTwelve;
+  const checkPassword = () => dataRegister.password.length >= numberSix;
+  const checkEmail = () => regex.test(dataRegister.email);
+
   return (
     <div>
       <h1>Cadastro</h1>
@@ -61,6 +68,7 @@ export default function RegisterForm() {
           <button
             type="button"
             data-testid="common_register__button-register"
+            disabled={ !(checkEmail() && checkName() && checkPassword()) }
           >
             Cadastrar
           </button>
