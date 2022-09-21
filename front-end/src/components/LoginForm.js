@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
+const LENGTH_PASSWORD = 6;
+
 export default function LoginForm() {
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
@@ -9,6 +11,11 @@ export default function LoginForm() {
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
+
+    const regex = /\S+@\S+\.\S+/;
+    const isValid = regex
+      .test(dataLogin.email) || dataLogin.password.length < LENGTH_PASSWORD;
+    if (!isValid) return false;
   };
 
   const handleLogin = async (e) => {
@@ -63,7 +70,13 @@ export default function LoginForm() {
 
         {
           erroResponse
-          && <p>{ erroResponse }</p>
+          && (
+            <p
+              data-testid="common_login__element-invalid-email"
+            >
+              { erroResponse }
+            </p>
+          )
         }
       </form>
     </div>
