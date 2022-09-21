@@ -4,7 +4,7 @@
 */
 
 module.exports = (sequelize, DataTypes) => {
-  const Sales = sequelize.define('Sales', {
+  const Sale = sequelize.define('Sale', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'User',
           key: 'id',
         },
     },
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
         references: {
-          model: 'Users',
+          model: 'User',
           key: 'id',
         },
     },
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     saleDate: {
       allowNull: false,
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       field: 'sale_date'
     },
     status: {
@@ -63,17 +63,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false, 
   });
 
-  Sales.associate = (models) => {
-    Sales.belongsTo(models.Users, {
-      foreignKey: 'userId', as: 'userId',
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User, {
+      foreignKey: 'userId', as: 'user',
     });
   };
   
-  Sales.associate = (models) => {
-    Sales.belongsTo(models.Users, {
-      foreignKey: 'sellerId', as: 'sellerId',
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User, {
+      foreignKey: 'sellerId', as: 'user',
     });
   };
 
-  return Sales;
+  return Sale;
 };

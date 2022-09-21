@@ -4,7 +4,7 @@
 */
 
 module.exports = (sequelize, DataTypes) => {
-  const Products = sequelize.define('Products', {
+  const Product = sequelize.define('Product', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -31,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false, 
   });
 
-  Products.associate = (models) => {
-    Products.hasMany(models.SalesProducts, {
-      foreignKey: 'productId', as: 'salesProducts',
+  Product.associate = (models) => {
+    Product.hasMany(models.SalesProduct, {
+      foreignKey: 'productId', as: 'salesProduct',
     });
   };
 
-  return Products;
+  return Product;
 };

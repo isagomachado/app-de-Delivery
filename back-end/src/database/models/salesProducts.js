@@ -4,28 +4,26 @@
 */
 
 module.exports = (sequelize, DataTypes) => {
-  const SalesProducts = sequelize.define('SalesProducts', {
+  const SalesProduct = sequelize.define('SalesProduct', {
     saleId: {
-      autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
       field: 'sale_id',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
         references: {
-          model: 'Sales',
+          model: 'Sale',
           key: 'id',
         },
     },
     productId: {
-      autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
       field: 'product_id',
       onUpdate: 'CASCADE',
       onDelete: 'CASCADE',
         references: {
-          model: 'Products',
+          model: 'Product',
           key: 'id',
         },
     },
@@ -39,17 +37,17 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false, 
   });
 
-  SalesProducts.associate = (models) => {
-    SalesProducts.belongsTo(models.Sales, {
+  SalesProduct.associate = (models) => {
+    SalesProduct.belongsTo(models.Sale, {
       foreignKey: 'saleId', as: 'sale',
     });
   };
 
-  SalesProducts.associate = (models) => {
-    SalesProducts.belongsTo(models.Products, {
+  SalesProduct.associate = (models) => {
+    SalesProduct.belongsTo(models.Product, {
       foreignKey: 'productId', as: 'product',
     });
   };
 
-  return SalesProducts;
+  return SalesProduct;
 };
