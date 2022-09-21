@@ -10,6 +10,7 @@ export const loginUser = async ({ email, password }) => {
   console.log(response.data);
   return response;
 };
+
 export const products = async () => {
   api.get('/products');
 };

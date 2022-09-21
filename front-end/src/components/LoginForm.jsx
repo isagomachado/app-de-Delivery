@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
+
 import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
+const REGEX_EMAIL = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]{3}?$/i;
 
 export default function LoginForm() {
   const [erroResponse, setErroResponse] = useState('');
@@ -11,11 +13,7 @@ export default function LoginForm() {
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
-
-    const regex = /\S+@\S+\.\S+/;
-    const isValid = regex
-      .test(dataLogin.email) || dataLogin.password.length < LENGTH_PASSWORD;
-    if (!isValid) return false;
+    console.log(dataLogin);
   };
 
   const handleLogin = async (e) => {
@@ -56,6 +54,10 @@ export default function LoginForm() {
         <button
           type="button"
           data-testid="common_login__button-login"
+          disabled={
+            (!REGEX_EMAIL.test(dataLogin.email)
+            || dataLogin.password.length < LENGTH_PASSWORD)
+          }
           onClick={ handleLogin }
         >
           LOGIN
