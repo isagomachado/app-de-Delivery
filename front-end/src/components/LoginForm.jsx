@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
+import { useNavigate } from "react-router-dom";
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
@@ -7,6 +8,8 @@ const LENGTH_PASSWORD = 6;
 export default function LoginForm() {
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
+
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -61,9 +64,11 @@ export default function LoginForm() {
           LOGIN
         </button>
 
+
         <button
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate("/register") }
         >
           Ainda não tenho conta
         </button>
