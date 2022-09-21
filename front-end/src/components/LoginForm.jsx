@@ -14,14 +14,18 @@ export default function LoginForm() {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
     console.log(dataLogin);
+    setErroResponse('');
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await loginUser(dataLogin);
 
-    if (response.message) setErroResponse(response.message);
-    localStorage.setItem('login', JSON.stringify(response));
+    if (response.message) {
+      setErroResponse(response.message);
+    } else {
+      localStorage.setItem('login', JSON.stringify(response));
+    }
   };
 
   return (
