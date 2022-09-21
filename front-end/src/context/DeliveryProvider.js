@@ -5,10 +5,11 @@ import DeliveryContext from './DeliveryContext';
 
 export default function DeliveryProvider({ children }) {
   const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
+  const [dataRegister, setDataRegister] = useState({ name: '', email: '', password: '' })
 
   const contextValue = useMemo(() => ({
-    dataLogin, setDataLogin,
-  }), [dataLogin]);
+    dataLogin, setDataLogin, dataRegister, setDataRegister,
+  }), [dataLogin, dataRegister]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>
