@@ -24,8 +24,9 @@ export default function LoginForm() {
     if (response.message) {
       setErroResponse(response.message);
     } else {
-      localStorage.setItem('login', JSON.stringify(response));
+      localStorage.setItem('token', JSON.stringify(response.data));
     }
+    // if ()
   };
 
   return (
