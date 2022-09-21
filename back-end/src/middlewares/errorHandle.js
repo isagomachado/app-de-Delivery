@@ -1,8 +1,7 @@
-const ErrorsCode = require('../errors/ErrorsCode')
-const typeErrors = require('../errors/typeErrors')
+const typeErrors = require('../errors/typeErrors');
 
 /**
- * @param {ErrorsCode} err 
+ * @param {ErrorsCode} err
  * @param {import('express').Request} req 
  * @param {import('express').Response} res 
  * @param {import('express').NextFunction} next 

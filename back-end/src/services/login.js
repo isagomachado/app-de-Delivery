@@ -1,5 +1,5 @@
-const models = require('../database/models');
 const md5 = require('md5');
+const models = require('../database/models');
 
 const ErrorsCode = require('../errors/ErrorsCode');
 
@@ -14,10 +14,10 @@ class LoginService {
 
     if (!user || user.password !== hashPass) {
       throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 401);
-    };
+    }
 
     return user;
   }
 }
 
-module.exports = LoginService
+module.exports = LoginService;

@@ -1,5 +1,4 @@
 class ErrorsCode extends Error {
-  code = 500;
   constructor(name, message, code) {
     super(message);
     this.name = name;

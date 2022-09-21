@@ -12,7 +12,7 @@ class Validate {
       const result = await schema.validateAsync(body);
       return result;
     } catch (error) {
-      throw new ErrorsCode('ValidationError', error, 400)
+      throw new ErrorsCode('ValidationError', error, 400);
     }
   }
 }
