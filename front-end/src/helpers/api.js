@@ -13,7 +13,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const registerUser = async ({ email, password, name }) => {
   const response = await api
-    .post('/register', { email, password, name }).catch((error) => error.response.data);
+    .post('/register', { email, password, name });
   return response;
 };
 

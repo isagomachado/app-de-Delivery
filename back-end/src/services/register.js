@@ -17,7 +17,7 @@ class RegisterService {
     const existsEmail = await this.checkExists(email);
     console.log(existsEmail);
     if (existsEmail) {
-      throw new ErrorsCode('EmailAlreadyExists', 'Email already Exists', 406);
+      throw new ErrorsCode('EmailAlreadyExists', 'Email already Exists', 409);
     }
 
     const user = await models.User.create(aux, {

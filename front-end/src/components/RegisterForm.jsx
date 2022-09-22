@@ -1,20 +1,17 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
+import { registerUser } from '../helpers/api';
 
 export default function RegisterForm() {
-  const [erroResponse,
-    // setErroResponse,
-  ] = useState('');
+  const [erroResponse, setErroResponse] = useState('');
   const { dataRegister, setDataRegister } = useContext(DeliveryContext);
+
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataRegister({ ...dataRegister, [name]: value });
-
-    // const regex = /\S+@\S+\.\S+/;
-    // const isValid = regex
-    //   .test(dataLogin.email) || dataLogin.password.length < LENGTH_PASSWORD;
-    // if (!isValid) return false;
   };
 
   const regex = /\S+@\S+\.\S+/;
@@ -69,6 +66,15 @@ export default function RegisterForm() {
             type="button"
             data-testid="common_register__button-register"
             disabled={ !(checkEmail() && checkName() && checkPassword()) }
+            onClick={ async () => {
+              try {
+                const response = await registerUser(dataRegister);
+                console.log(response);
+                navigate('/customer/products');
+              } catch (err) {
+                setErroResponse('error');
+              }
+            } }
           >
             Cadastrar
           </button>
