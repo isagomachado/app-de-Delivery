@@ -5,7 +5,6 @@ import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
-// const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]{3}?$/i;
 const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]?/i;
 
 export default function LoginForm() {
