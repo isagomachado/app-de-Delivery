@@ -6,9 +6,7 @@ export default function Products() {
   return (
     <>
       <Navbar />
-      <main>
-        <Card />
-      </main>
+      <Card />
     </>
   );
 }

@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs')
 const md5 = require('md5');
 const models = require('../database/models');
 
 const ErrorsCode = require('../errors/ErrorsCode');
 
-const SECRET = process.env.JWT_SECRET || 'secret';
+const SECRET = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8'});
 
 class LoginService {
   static async login({ email, password }) {
@@ -19,10 +20,10 @@ class LoginService {
       throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 404);
     }
 
-    const { password: pass, ...data } = user;
+    const { password: pass, id: idUser, ...data } = user;
     const token = LoginService.createToken(data);
 
-    return { data, token };
+    return { ...data, token };
   }
 
   static createToken(payload) {

@@ -9,7 +9,7 @@ export default function Card() {
 
   return (
     <>
-      <div style={ { display: 'flex' } }>
+      <main style={ { display: 'flex' } }>
         {products
           && products.map((prod) => (
             <div
@@ -46,7 +46,7 @@ export default function Card() {
               </button>
             </div>
           ))}
-      </div>
+      </main>
       <button
         data-testid="customer_products__checkout-bottom-value"
         type="button"

@@ -12,6 +12,12 @@ export default function LoginForm() {
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
 
+  const redirectRoute = (role) => {
+    if (role === 'seller') navigate('/seller');
+    if (role === 'customer') navigate('/customer/products');
+    if (role === 'administrator') navigate('/administrator');
+  };
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
@@ -24,11 +30,9 @@ export default function LoginForm() {
     if (response.message) {
       setErroResponse(response.message);
     } else {
-      const { role } = response.data.data;
-      localStorage.setItem('token', response.data.token);
-      if (role === 'seller') navigate('/seller');
-      if (role === 'customer') navigate('/customer/products');
-      if (role === 'administrator') navigate('/administrator');
+      const { role } = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+      redirectRoute(role);
     }
   };
 
