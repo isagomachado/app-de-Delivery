@@ -1,7 +1,10 @@
+const jwt = require('jsonwebtoken');
 const md5 = require('md5');
 const models = require('../database/models');
 
 const ErrorsCode = require('../errors/ErrorsCode');
+
+const SECRET = process.env.JWT_SECRET || 'secret';
 
 class LoginService {
   static async login({ email, password }) {
@@ -13,10 +16,32 @@ class LoginService {
     });
 
     if (!user || user.password !== hashPass) {
-      throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 401);
+      throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 404);
     }
 
-    return user;
+    const { password: pass, ...data } = user;
+    const token = LoginService.createToken(data);
+
+    return { data, token };
+  }
+
+  static createToken(payload) {
+    const config = {
+      expiresIn: '2d',
+      algorithm: 'HS256',
+    };
+  
+    const token = jwt.sign(payload, SECRET, config);
+    return token;
+  }
+  
+  static validateToken(token) {
+    try {
+      const data = jwt.verify(token, SECRET, { complete: true });
+      return data;
+    } catch (error) {
+      throw new ErrorsCode('UnauthorizedError', 'Token must be a valid token', 404);
+    }
   }
 }
 
