@@ -1,20 +1,20 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
-const REGEX_EMAIL = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]{3}?$/i;
+const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]{3}?$/i;
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
-    console.log(dataLogin);
-    setErroResponse('');
   };
 
   const handleLogin = async (e) => {
@@ -24,9 +24,12 @@ export default function LoginForm() {
     if (response.message) {
       setErroResponse(response.message);
     } else {
-      localStorage.setItem('token', JSON.stringify(response.data));
+      const { role } = response.data.data;
+      localStorage.setItem('token', response.data.token);
+      if (role === 'seller') navigate('/seller');
+      if (role === 'customer') navigate('/customer/products');
+      if (role === 'administrator') navigate('/administrator');
     }
-    // if ()
   };
 
   return (
@@ -74,17 +77,11 @@ export default function LoginForm() {
         >
           Ainda não tenho conta
         </button>
-
-        {
-          erroResponse
-          && (
-            <p
-              data-testid="common_login__element-invalid-email"
-            >
-              { erroResponse }
-            </p>
-          )
-        }
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          { erroResponse }
+        </p>
       </form>
     </div>
   );
