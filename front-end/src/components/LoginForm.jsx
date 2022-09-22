@@ -1,29 +1,36 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
+// const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]{3}?$/i;
+const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]?/i;
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setDataLogin({ ...dataLogin, [name]: value });
-
-    const regex = /\S+@\S+\.\S+/;
-    const isValid = regex
-      .test(dataLogin.email) || dataLogin.password.length < LENGTH_PASSWORD;
-    if (!isValid) return false;
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const response = await loginUser(dataLogin);
 
-    if (response.message) setErroResponse(response.message);
-    localStorage.setItem('login', JSON.stringify(response));
+    if (response.message) {
+      setErroResponse(response.message);
+    } else {
+      const { role } = response.data.data;
+      localStorage.setItem('token', response.data.token);
+      if (role === 'seller') navigate('/seller');
+      if (role === 'customer') navigate('/customer/products');
+      if (role === 'administrator') navigate('/administrator');
+    }
   };
 
   return (
@@ -56,6 +63,10 @@ export default function LoginForm() {
         <button
           type="button"
           data-testid="common_login__button-login"
+          disabled={
+            (!REGEX_EMAIL.test(dataLogin.email)
+            || dataLogin.password.length < LENGTH_PASSWORD)
+          }
           onClick={ handleLogin }
         >
           LOGIN
@@ -67,17 +78,11 @@ export default function LoginForm() {
         >
           Ainda não tenho conta
         </button>
-
-        {
-          erroResponse
-          && (
-            <p
-              data-testid="common_login__element-invalid-email"
-            >
-              { erroResponse }
-            </p>
-          )
-        }
+        <p
+          data-testid="common_login__element-invalid-email"
+        >
+          { erroResponse }
+        </p>
       </form>
     </div>
   );

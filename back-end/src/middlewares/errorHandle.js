@@ -10,15 +10,7 @@ const typeErrors = require('../errors/typeErrors');
 const erroHandler = (err, _req, res, _next) => {
   const { name, message, code } = err;
 
-  console.log('name:', name);
-  console.log('message:', message);
-
   const status = typeErrors[name];
-  console.log(status);
-
-  if (name === 'JsonWebTokenError') {
-    return res.status(code).json({ message: 'Expired or invalid token' });
-  }
   
   if (!status) return res.status(500).json({ message });
 
