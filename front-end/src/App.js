@@ -6,13 +6,17 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Checkout from './pages/Checkout';
+import Register from './pages/Register';
+import CostumerProducts from './pages/CostumerProducts';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={ <Home /> } />
+      <Route exact path="/customer/products" element={ <CostumerProducts /> } />
+      <Route exact path="/register" element={ <Register /> } />
       <Route path="/login" element={ <Login /> } />
-      <Route path="/customer/checkout" element={ <Checkout /> } />
+      <Route exact path="/customer/checkout" element={ <Checkout /> } />
+      <Route path="/" element={ <Home /> } />
     </Routes>
   );
 }
