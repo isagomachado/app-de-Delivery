@@ -10,6 +10,12 @@ export const loginUser = async ({ email, password }) => {
   return response;
 };
 
+export const registerUser = async ({ email, password, name }) => {
+  const response = await api
+    .post('/register', { email, password, name });
+  return response;
+};
+
 export const products = async () => {
   api.get('/products');
 };
