@@ -16,6 +16,8 @@ export const registerUser = async ({ email, password, name }) => {
   return response;
 };
 
-export const products = async () => {
-  api.get('/products');
+export const getAllproducts = async () => {
+  const response = await api.get('/customer/products')
+    .catch((error) => error.response.data);
+  return response.data;
 };

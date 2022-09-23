@@ -4,14 +4,18 @@ import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
-// const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]{3}?$/i;
 const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]?/i;
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [erroResponse, setErroResponse] = useState('');
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
 
-  const navigate = useNavigate();
+  const redirectRoute = (role) => {
+    if (role === 'seller') navigate('/seller');
+    if (role === 'customer') navigate('/customer/products');
+    if (role === 'administrator') navigate('/administrator');
+  };
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -25,11 +29,9 @@ export default function LoginForm() {
     if (response.message) {
       setErroResponse(response.message);
     } else {
-      const { role } = response.data.data;
-      localStorage.setItem('token', response.data.token);
-      if (role === 'seller') navigate('/seller');
-      if (role === 'customer') navigate('/customer/products');
-      if (role === 'administrator') navigate('/administrator');
+      const { role } = response.data;
+      localStorage.setItem('user', JSON.stringify(response.data));
+      redirectRoute(role);
     }
   };
 
