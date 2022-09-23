@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
-const fs = require('fs')
+const fs = require('fs');
 const md5 = require('md5');
 const models = require('../database/models');
 
 const ErrorsCode = require('../errors/ErrorsCode');
 
-const SECRET = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8'});
+const SECRET = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 
 class LoginService {
   static async login({ email, password }) {
