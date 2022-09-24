@@ -78,11 +78,11 @@ export default function Card() {
   const saveStorage = () => {
     // const obj = [];
     // setStorage([...storage, obj]);
-    console.log(storage);
+    // console.log(storage);
     // console.log(storage);
     // console.log(obj);
 
-    if (storage) localStorage.setItem('cart', JSON.stringify(storage));
+    // if (storage) localStorage.setItem('cart', JSON.stringify(storage));
   };
 
   // em andamento
