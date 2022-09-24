@@ -5,7 +5,7 @@ import { loginUser } from '../helpers/api';
 
 const LENGTH_PASSWORD = 6;
 const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]?/i;
-console.log('a');
+
 export default function LoginForm() {
   const navigate = useNavigate();
   const [erroResponse, setErroResponse] = useState('');
