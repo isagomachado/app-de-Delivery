@@ -13,9 +13,9 @@ function App() {
   return (
     <Routes>
       <Route exact path="/customer/products" element={ <CostumerProducts /> } />
+      <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route exact path="/register" element={ <Register /> } />
       <Route path="/login" element={ <Login /> } />
-      <Route exact path="/customer/checkout" element={ <Checkout /> } />
       <Route path="/" element={ <Home /> } />
     </Routes>
   );
