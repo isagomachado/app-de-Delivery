@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getSallers } from '../helpers/api';
 
 const usuario = { id: 999999 };
@@ -37,6 +38,7 @@ export default function CheckoutBody() {
   const [products, setProducts] = useState([]);
   const [addresUser, setAddress] = useState({ addres: '', addresNumber: '' });
   const [vendedor, setVendedor] = useState({ all: [], select: '' });
+  const navegate = useNavigate();
 
   useEffect(() => {
     const vendedores = async () => {
@@ -80,12 +82,14 @@ export default function CheckoutBody() {
       totalPrice: total,
       deliveryAddress: addresUser.addres,
       deliveryNumber: addresUser.addresNumber,
-      saleDate: new Date(),
-      status: true,
+      // saleDate: new Date(),
+      status: 'Pendente',
     };
     console.log(objSale);
-    // const sale = await registerSales(objSale);
-    // await registerSalesProducts({ saleid: sale });
+    // const saleId = '22222222';
+    const saleId = await registerSales({ objSale, products });
+    // await registerSalesProducts({ saleId, products });
+    navegate(`/customer/orders/${saleId}`);
   };
 
   return (
@@ -188,7 +192,7 @@ export default function CheckoutBody() {
         />
         <p>Número</p>
         <input
-          data-testid="customer_checkout__input-addressNumber"
+          data-testid="customer_checkout__input-address-number"
           type="number"
           name="addresNumber"
           onChange={ handleAddress }

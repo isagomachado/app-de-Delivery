@@ -26,11 +26,11 @@ export const registerSales = async (sale) => {
   return response;
 };
 
-export const registerSalesProducts = async (sale) => {
-  const response = await api
-    .post('/saleproducts', sale);
-  return response;
-};
+// export const registerSalesProducts = async (sale) => {
+//   const response = await api
+//     .post('/saleproducts', sale);
+//   return response;
+// };
 
 export const getSallers = async () => {
   const response = await api
