@@ -4,8 +4,8 @@ const Validate = require('../services/validations');
 class LoginController {
   static async login(req, res) {
     await Validate.loginBody(req.body);
-    const { data, token } = await LoginService.login(req.body);
-    return res.status(200).json({ data, token });
+    const data = await LoginService.login(req.body);
+    return res.status(200).json(data);
   }
 }
 
