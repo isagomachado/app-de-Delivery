@@ -79,15 +79,18 @@ export default function Card() {
     }
   };
 
-  const saveStorage = () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  };
+  // const saveStorage = () => {
+  //   localStorage.setItem('cart', JSON.stringify(cart));
+  // };
 
   const checkOut = () => {
     navigate('/customer/checkout');
   };
 
   useEffect(() => {
+    const saveStorage = () => {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    };
     saveStorage();
   }, [cart]);
 
