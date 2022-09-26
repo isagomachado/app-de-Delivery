@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import DeliveryContext from './DeliveryContext';
+import { getAllproducts } from '../helpers/api';
 
 export default function DeliveryProvider({ children }) {
-  const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
   const [dataRegister, setDataRegister] = useState({ name: '', email: '', password: '' });
   const [erroResponseAdmin, setErroResponseAdmin] = useState('');
   const [dataAdminRegister, setDataAdminRegister] = useState({
@@ -13,17 +13,30 @@ export default function DeliveryProvider({ children }) {
     password: '',
     type: 'Vendedor',
   });
+  const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
+  const [products, setProducts] = useState([]);
+
+  const getProducts = async () => {
+    const response = await getAllproducts();
+    setProducts(response);
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const contextValue = useMemo(() => ({
     dataLogin,
     setDataLogin,
+    products,
+    setProducts,
     dataRegister,
     setDataRegister,
     dataAdminRegister,
     setDataAdminRegister,
     erroResponseAdmin,
     setErroResponseAdmin,
-  }), [dataLogin, dataRegister, dataAdminRegister, erroResponseAdmin]);
+  }), [dataLogin, products, dataRegister, dataAdminRegister, erroResponseAdmin]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>
