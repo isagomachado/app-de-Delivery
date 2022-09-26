@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
 export default function Card() {
   const REPLACE = '.';
+  const navigate = useNavigate();
+
   const { products } = useContext(DeliveryContext);
   const [quantity, setQuantity] = useState({});
   const [valueTotal, setValueTotal] = useState(0);
@@ -19,7 +22,6 @@ export default function Card() {
     setValueTotal(calcTotal);
   };
 
-  // em andamento
   const calcInput = async (qty, name, price) => {
     setQuantity({ ...quantity, [name]: qty });
 
@@ -58,6 +60,10 @@ export default function Card() {
   // em andamento
   const saveStorage = () => {
 
+  };
+
+  const checkOut = () => {
+    navigate('/customer/checkout');
   };
 
   // em andamento
@@ -124,12 +130,19 @@ export default function Card() {
           ))}
       </main>
       <button
-        data-testid="customer_products__checkout-bottom-value"
+        data-testid="customer_products__button-cart"
         type="button"
+        disabled={ valueTotal < 1 }
+        onClick={ checkOut }
         name="total-price"
         id="total-price"
       >
-        {valueTotal.toFixed(2).replace(REPLACE, ',')}
+        Ver carrinho:
+        <span
+          data-testid="customer_products__checkout-bottom-value"
+        >
+          {valueTotal.toFixed(2).replace(REPLACE, ',')}
+        </span>
       </button>
     </>
   );
