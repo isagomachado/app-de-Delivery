@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSallers } from '../helpers/api';
+import Table from './Table';
 
 const usuario = { id: 999999 };
 const produtos = [
@@ -50,12 +51,12 @@ export default function CheckoutBody() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleButtonRemove = ({ target }) => {
-    const { id } = target;
-    const newProdutos = products.filter((prod) => prod.id !== Number(id));
-    setProducts(newProdutos);
-    console.log(vendedor);
-  };
+  // const handleButtonRemove = ({ target }) => {
+  //   const { id } = target;
+  //   const newProdutos = products.filter((prod) => prod.id !== Number(id));
+  //   setProducts(newProdutos);
+  //   console.log(vendedor);
+  // };
 
   const handleAddress = ({ target }) => {
     const { value, name } = target;
@@ -96,71 +97,7 @@ export default function CheckoutBody() {
     <div>
       <section>
         <h1>Finalizar pedido</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              <th>Remover Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            { products && products.map((prod, index) => (
-              <tr key={ index }>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-item-number-<${index}>`
-                  }
-                >
-                  {prod.id}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-name-<${index}>`
-                  }
-                >
-                  {prod.name}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-quantity-<${index}>`
-                  }
-                >
-                  {prod.quantidade}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-unit-price-<${index}>`
-                  }
-                >
-                  {prod.price.toFixed(2)}
-                </td>
-                <td
-                  data-testid={
-                    `customer_checkout__element-order-table-sub-total-<${index}>`
-                  }
-                >
-                  {(prod.price * prod.quantidade).toFixed(2)}
-                </td>
-                <td>
-                  <button
-                    id={ prod.id }
-                    type="button"
-                    onClick={ handleButtonRemove }
-                    data-testid={
-                      `customer_checkout__element-order-table-remove-<${index}>`
-                    }
-                  >
-                    Remover
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table />
         <h1
           data-testid="customer_checkout__element-order-total-price"
         >
