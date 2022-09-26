@@ -6,6 +6,7 @@ import DeliveryContext from './DeliveryContext';
 export default function DeliveryProvider({ children }) {
   const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
   const [dataRegister, setDataRegister] = useState({ name: '', email: '', password: '' });
+  const [erroResponseAdmin, setErroResponseAdmin] = useState('');
   const [dataAdminRegister, setDataAdminRegister] = useState({
     name: '',
     email: '',
@@ -20,7 +21,9 @@ export default function DeliveryProvider({ children }) {
     setDataRegister,
     dataAdminRegister,
     setDataAdminRegister,
-  }), [dataLogin, dataRegister, dataAdminRegister]);
+    erroResponseAdmin,
+    setErroResponseAdmin,
+  }), [dataLogin, dataRegister, dataAdminRegister, erroResponseAdmin]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>
