@@ -5,4 +5,4 @@ const getSallers = Router();
 
 getSallers.route('/').get(GetSallersController.get);
 
-module.exports =  getSallers;
+module.exports = getSallers;
