@@ -9,7 +9,6 @@ import Register from './pages/Register';
 import AdminManage from './pages/AdminManage';
 import Products from './pages/Products';
 
-
 function App() {
   return (
     <Routes>

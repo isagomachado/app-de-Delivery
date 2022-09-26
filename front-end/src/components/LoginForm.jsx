@@ -31,6 +31,7 @@ export default function LoginForm() {
     } else {
       const { role } = response.data;
       localStorage.setItem('user', JSON.stringify(response.data));
+      redirectRoute(role);
     }
   };
 
