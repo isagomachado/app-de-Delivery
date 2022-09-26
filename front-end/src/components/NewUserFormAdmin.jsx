@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import DeliveryContext from '../context/DeliveryContext';
 
 export default function NewUserFormAdmin() {
+  const { dataAdminRegister, setDataAdminRegister } = useContext(DeliveryContext);
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setDataAdminRegister({ ...dataAdminRegister, [name]: value });
+  };
+
   return (
     <div>
       <h1>Cadastrar novo usuário</h1>
@@ -43,7 +51,11 @@ export default function NewUserFormAdmin() {
 
         <label htmlFor="type-select">
           Tipo
-          <select name="type-select" id="type-select">
+          <select
+            name="type"
+            id="type-select"
+            data-testid="admin_manage__select-role"
+          >
             <option value="Vendedor">Vendedor</option>
             <option value="Cliente">Cliente</option>
           </select>

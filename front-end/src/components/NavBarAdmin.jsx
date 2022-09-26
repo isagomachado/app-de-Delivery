@@ -4,7 +4,7 @@ export default function NavBarAdmin() {
   return (
     <nav>
       <a
-        href=""
+        href="/admin/manage"
         data-testid="customer_products__element-navbar-link-orders"
       >
         Gerenciar Usuários
@@ -17,7 +17,7 @@ export default function NavBarAdmin() {
           Full Name
         </p>
         <a
-          href=""
+          href="/"
           data-testid="customer_products__element-navbar-link-logout"
         >
           Sair

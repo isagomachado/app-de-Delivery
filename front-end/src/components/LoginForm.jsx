@@ -29,7 +29,7 @@ export default function LoginForm() {
       localStorage.setItem('token', response.data.token);
       if (role === 'seller') navigate('/seller');
       if (role === 'customer') navigate('/customer/products');
-      if (role === 'administrator') navigate('/administrator');
+      if (role === 'administrator') navigate('/admin/manage');
     }
   };
 

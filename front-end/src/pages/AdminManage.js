@@ -3,7 +3,10 @@ import NavBarAdmin from '../components/NavBarAdmin';
 import NewUserFormAdmin from '../components/NewUserFormAdmin';
 
 export default function AdminManage() {
-  const [erroResponse, setErroResponse] = useState('')
+  const [
+    erroResponse,
+    // setErroResponse,
+  ] = useState('');
   return (
     <div>
       <NavBarAdmin />
