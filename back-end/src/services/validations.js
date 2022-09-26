@@ -30,6 +30,27 @@ class Validate {
       throw new ErrorsCode('ValidationError', error, 400);
     }
   }
+
+  static async saleBody(body) {
+    try {
+      const schema = Joi.object({
+        objSale: Joi.object({
+          userId: Joi.number(),
+          sellerId: Joi.string(),
+          totalPrice: Joi.string(),
+          deliveryAddress: Joi.string(),
+          deliveryNumber: Joi.string(),
+          status: Joi.string(),
+        }),
+        products: Joi.array(),
+      });
+
+      const result = await schema.validateAsync(body);
+      return result;
+    } catch (error) {
+      throw new ErrorsCode('ValidationError', error, 400);
+    }
+  }
 }
 
 module.exports = Validate;
