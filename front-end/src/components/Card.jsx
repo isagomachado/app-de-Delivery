@@ -9,6 +9,21 @@ export default function Card() {
   const { products } = useContext(DeliveryContext);
   const [quantity, setQuantity] = useState({});
   const [valueTotal, setValueTotal] = useState(0);
+  const [cart, setCart] = useState([]);
+
+  const addCart = (name, price, qty) => {
+    const findProd = cart.filter((prod) => prod.name !== name);
+
+    const save = {
+      name,
+      qty,
+      price,
+    };
+
+    findProd.push(save);
+
+    setCart(findProd);
+  };
 
   const sumTotal = async (price) => {
     const priceProd = parseFloat(price);
@@ -23,7 +38,7 @@ export default function Card() {
   };
 
   const calcInput = async (qty, name, price) => {
-    setQuantity({ ...quantity, [name]: qty });
+    setQuantity({ ...quantity, [name]: qty, [price]: price });
 
     const calcProd = qty * price;
     const calcTotal = valueTotal + calcProd;
@@ -35,6 +50,8 @@ export default function Card() {
     const { value, name, id: price } = target;
     const qtyNumber = parseFloat(value);
     const priceNumber = parseFloat(price);
+
+    addCart(name, priceNumber, qtyNumber);
     setQuantity({ ...quantity, [name]: qtyNumber });
     calcInput(qtyNumber, name, priceNumber);
   };
@@ -42,8 +59,10 @@ export default function Card() {
   const incrementeQuantity = ({ target }) => {
     const { name, value } = target;
     const sum = typeof quantity[name] !== 'number' ? 0 : quantity[name];
+    const qty = sum + 1;
 
-    setQuantity({ ...quantity, [name]: sum + 1 });
+    setQuantity({ ...quantity, [name]: qty });
+    addCart(name, value, qty);
     sumTotal(value);
   };
 
@@ -52,24 +71,25 @@ export default function Card() {
     if (quantity[name] === 0 || quantity[name] === undefined) {
       setQuantity({ ...quantity, [name]: 0 });
     } else {
+      const qty = quantity[name] - 1;
       setQuantity({ ...quantity, [name]: quantity[name] - 1 });
+      addCart(name, value, qty);
+
       subTotal(value);
     }
   };
 
-  // em andamento
   const saveStorage = () => {
-
+    localStorage.setItem('cart', JSON.stringify(cart));
   };
 
   const checkOut = () => {
     navigate('/customer/checkout');
   };
 
-  // em andamento
   useEffect(() => {
     saveStorage();
-  }, [quantity]);
+  }, [cart]);
 
   return (
     <>
