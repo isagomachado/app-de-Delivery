@@ -22,10 +22,14 @@ export const getAllproducts = async () => {
   return response.data;
 };
 
-export const registerSales = async (sale) => {
+export const registerSales = async (sale, token) => {
   const response = await api
-    .post('/sale', sale);
-  return response;
+    .post('/sale', sale, {
+      headers: {
+        Authorization: token,
+      } });
+  // console.log(response);
+  return response.data;
 };
 
 // export const registerSalesProducts = async (sale) => {

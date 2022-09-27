@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Table({ products, handleButtonRemove }) {
+export default function Table({ cart, handleButtonRemove }) {
   const REPLACE = '.';
   return (
     <table>
@@ -16,7 +16,7 @@ export default function Table({ products, handleButtonRemove }) {
         </tr>
       </thead>
       <tbody>
-        { products && products.map((prod, index) => (
+        { cart && cart.map((prod, index) => (
           <tr key={ index }>
             <td
               data-testid={
@@ -73,7 +73,7 @@ export default function Table({ products, handleButtonRemove }) {
 }
 
 Table.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape({
+  cart: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     qty: PropTypes.number.isRequired,
     price: PropTypes.string.isRequired,

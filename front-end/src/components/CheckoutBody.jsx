@@ -1,14 +1,12 @@
-/* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getSallers, registerSales } from '../helpers/api';
 import Table from './Table';
 
-const usuario = { id: 3 };
-
 export default function CheckoutBody() {
   const produtos = JSON.parse(localStorage.getItem('cart'));
-  const [products, setProducts] = useState(produtos);
+  const { token } = JSON.parse(localStorage.getItem('user'));
+  const [cart, setCart] = useState(produtos);
   const [addresUser, setAddress] = useState({ addres: '', addresNumber: '' });
   const [vendedor, setVendedor] = useState({ all: [], select: '' });
   const navegate = useNavigate();
@@ -20,15 +18,14 @@ export default function CheckoutBody() {
       setVendedor({ all: seller, select: seller[0].id });
     };
     vendedores();
-    // setProducts(produtos);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleButtonRemove = ({ target }) => {
     const { id } = target;
-    const newProdutos = products.filter((prod) => prod.name !== id);
-    console.log(newProdutos);
-    setProducts(newProdutos);
+    const newCart = cart.filter((prod) => prod.name !== id);
+    // console.log(newCart);
+    setCart(newCart);
   };
 
   const handleAddress = ({ target }) => {
@@ -38,8 +35,8 @@ export default function CheckoutBody() {
 
   const handleTotal = () => {
     let total;
-    if (products.length !== 0) {
-      total = products
+    if (cart.length !== 0) {
+      total = cart
         .map((prod) => prod.price * prod.qty)
         .reduce((acc, number) => acc + number);
     } else {
@@ -51,7 +48,7 @@ export default function CheckoutBody() {
   const handleButtonSubmitOrder = async () => {
     const total = handleTotal();
     const objSale = {
-      userId: usuario.id,
+      userId: '',
       sellerId: vendedor.select,
       totalPrice: Number(total),
       deliveryAddress: addresUser.addres,
@@ -59,11 +56,10 @@ export default function CheckoutBody() {
       saleDate: new Date(),
       status: 'Pendente',
     };
-    console.log({ objSale, products });
-    // const saleId = '22222222';
-    const saleId = await registerSales({ objSale, products });
-    // await registerSalesProducts({ saleId, products });
-    navegate(`/customer/orders/${saleId}`);
+    const { id, header, user } = await registerSales({ objSale, cart }, token);
+    console.log(header);
+    console.log(user);
+    navegate(`/customer/orders/${id}`);
   };
 
   return (
@@ -71,7 +67,7 @@ export default function CheckoutBody() {
       <section>
         <h1>Finalizar pedido</h1>
         <Table
-          products={ products }
+          cart={ cart }
           handleButtonRemove={ handleButtonRemove }
         />
         <h1>

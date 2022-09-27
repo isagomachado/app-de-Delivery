@@ -3,6 +3,6 @@ const SaleController = require('../controllers/sale');
 
 const sale = Router();
 
-sale.route('/sale').post(SaleController.create);
+sale.route('/').post(SaleController.create);
 
 module.exports = sale;
