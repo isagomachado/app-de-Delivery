@@ -28,15 +28,8 @@ export const registerSales = async (sale, token) => {
       headers: {
         Authorization: token,
       } });
-  // console.log(response);
   return response.data;
 };
-
-// export const registerSalesProducts = async (sale) => {
-//   const response = await api
-//     .post('/saleproducts', sale);
-//   return response;
-// };
 
 export const getSallers = async () => {
   const response = await api

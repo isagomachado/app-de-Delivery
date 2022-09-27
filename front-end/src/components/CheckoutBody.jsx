@@ -56,9 +56,7 @@ export default function CheckoutBody() {
       status: 'Pendente',
     };
     const cartIds = cart.map((prod) => ({ id: prod.id, qty: prod.qty }));
-    const { id, header, user } = await registerSales({ objSale, cartIds }, token);
-    console.log(header);
-    console.log(user);
+    const { id } = await registerSales({ objSale, cartIds }, token);
     navegate(`/customer/orders/${id}`);
   };
 
