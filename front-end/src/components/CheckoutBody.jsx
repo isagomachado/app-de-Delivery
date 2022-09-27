@@ -8,7 +8,7 @@ const usuario = { id: 3 };
 
 export default function CheckoutBody() {
   const produtos = JSON.parse(localStorage.getItem('cart'));
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(produtos);
   const [addresUser, setAddress] = useState({ addres: '', addresNumber: '' });
   const [vendedor, setVendedor] = useState({ all: [], select: '' });
   const navegate = useNavigate();
@@ -20,7 +20,7 @@ export default function CheckoutBody() {
       setVendedor({ all: seller, select: seller[0].id });
     };
     vendedores();
-    setProducts(produtos);
+    // setProducts(produtos);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
