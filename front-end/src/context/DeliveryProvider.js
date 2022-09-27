@@ -11,7 +11,7 @@ export default function DeliveryProvider({ children }) {
     name: '',
     email: '',
     password: '',
-    type: 'Vendedor',
+    role: '',
   });
   const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
   const [products, setProducts] = useState([]);

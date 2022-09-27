@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
+import { adminRegisterUser } from '../helpers/api';
 
 export default function NewUserFormAdmin() {
   const {
@@ -78,12 +79,13 @@ export default function NewUserFormAdmin() {
         <label htmlFor="type-select">
           Tipo
           <select
-            name="type"
+            name="role"
             id="type-select"
             data-testid="admin_manage__select-role"
+            onChange={ handleChange }
           >
-            <option value="Vendedor" selected>Vendedor</option>
-            <option value="Cliente">Cliente</option>
+            <option value="seller" selected>Vendedor</option>
+            <option value="customer">Cliente</option>
           </select>
         </label>
 
@@ -91,6 +93,16 @@ export default function NewUserFormAdmin() {
           type="button"
           data-testid="admin_manage__button-register"
           disabled={ !(checkEmail() && checkName() && checkPassword()) }
+          onClick={ async () => {
+            try {
+              console.log(dataAdminRegister);
+              const response = await adminRegisterUser(dataAdminRegister);
+              console.log(response);
+            } catch (err) {
+              console.log(err);
+              setErroResponseAdmin('error');
+            }
+          } }
         >
           Cadastrar
         </button>

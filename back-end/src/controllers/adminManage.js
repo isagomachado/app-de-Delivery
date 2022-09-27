@@ -4,7 +4,6 @@ const ErrorsCode = require('../errors/ErrorsCode');
 
 class AdminManageController {
   static async create(req, res) {
-    console.log(req.user);
     if (req.user.payload.role === 'administrator') {
       await Validate.adminRegisterBody(req.body);
       const user = await AdminManageService.create(req.body);

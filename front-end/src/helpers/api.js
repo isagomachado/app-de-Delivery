@@ -21,3 +21,9 @@ export const getAllproducts = async () => {
     .catch((error) => error.response.data);
   return response.data;
 };
+
+export const adminRegisterUser = async ({ email, password, name, role }) => {
+  const response = await api
+    .post('/admin/manage', { email, password, name, role });
+  return response;
+};
