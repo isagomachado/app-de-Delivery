@@ -6,7 +6,7 @@ class SaleController {
   static async create(req, res) {
     const { objSale, cartIds } = req.body;
     const user = LoginService.validateToken(req.headers.authorization);
-    const sale = await SaleService.create({ ...objSale, userId: user.payload.id });
+    const sale = await SaleService.create({ ...objSale, userId: user.payload.userId });
     Promise.all(
       cartIds.map(async (cart) => {
         const result = await SaleProductsService.create({
