@@ -1,45 +1,18 @@
 /* eslint-disable react/jsx-max-depth */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getSallers } from '../helpers/api';
+import { getSallers, registerSales } from '../helpers/api';
 import Table from './Table';
 
-const usuario = { id: 999999 };
-const produtos = [
-  {
-    id: 1,
-    name: 'Skol Lata 250ml',
-    price: 2.2,
-    url_image: 'http://localhost:3001/images/skol_lata_350ml.jpg',
-    quantidade: 2,
-  },
-  {
-    id: 2,
-    name: 'Heineken 600ml',
-    price: 7.5,
-    url_image: 'http://localhost:3001/images/heineken_600ml.jpg',
-    quantidade: 2,
-  },
-  {
-    id: 3,
-    name: 'Antarctica Pilsen 300ml',
-    price: 2.49,
-    url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-    quantidade: 2,
-  },
-  {
-    id: 4,
-    name: 'Brahma 600ml',
-    price: 7.5,
-    url_image: 'http://localhost:3001/images/brahma_600ml.jpg',
-    quantidade: 2,
-  }];
+const usuario = { id: 3 };
 
 export default function CheckoutBody() {
+  const produtos = JSON.parse(localStorage.getItem('cart'));
   const [products, setProducts] = useState([]);
   const [addresUser, setAddress] = useState({ addres: '', addresNumber: '' });
   const [vendedor, setVendedor] = useState({ all: [], select: '' });
   const navegate = useNavigate();
+  const REPLACE = '.';
 
   useEffect(() => {
     const vendedores = async () => {
@@ -51,12 +24,12 @@ export default function CheckoutBody() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const handleButtonRemove = ({ target }) => {
-  //   const { id } = target;
-  //   const newProdutos = products.filter((prod) => prod.id !== Number(id));
-  //   setProducts(newProdutos);
-  //   console.log(vendedor);
-  // };
+  const handleButtonRemove = ({ target }) => {
+    const { id } = target;
+    const newProdutos = products.filter((prod) => prod.name !== id);
+    console.log(newProdutos);
+    setProducts(newProdutos);
+  };
 
   const handleAddress = ({ target }) => {
     const { value, name } = target;
@@ -67,7 +40,7 @@ export default function CheckoutBody() {
     let total;
     if (products.length !== 0) {
       total = products
-        .map((prod) => prod.price * prod.quantidade)
+        .map((prod) => prod.price * prod.qty)
         .reduce((acc, number) => acc + number);
     } else {
       total = 0;
@@ -80,13 +53,13 @@ export default function CheckoutBody() {
     const objSale = {
       userId: usuario.id,
       sellerId: vendedor.select,
-      totalPrice: total,
+      totalPrice: Number(total),
       deliveryAddress: addresUser.addres,
       deliveryNumber: addresUser.addresNumber,
-      // saleDate: new Date(),
+      saleDate: new Date(),
       status: 'Pendente',
     };
-    console.log(objSale);
+    console.log({ objSale, products });
     // const saleId = '22222222';
     const saleId = await registerSales({ objSale, products });
     // await registerSalesProducts({ saleId, products });
@@ -97,23 +70,29 @@ export default function CheckoutBody() {
     <div>
       <section>
         <h1>Finalizar pedido</h1>
-        <Table />
-        <h1
-          data-testid="customer_checkout__element-order-total-price"
-        >
+        <Table
+          products={ products }
+          handleButtonRemove={ handleButtonRemove }
+        />
+        <h1>
           Total: R$
           {' '}
-          { handleTotal() }
+          <span
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            { handleTotal().replace(REPLACE, ',') }
+          </span>
         </h1>
       </section>
       <section>
         Detalhes e Endereço para Entrega
         <p>P. Vendedora Responsável:</p>
-        <select>
+        <select
+          data-testid="customer_checkout__select-seller"
+        >
           { vendedor.all.length !== 0 && vendedor.all.map((vend, index) => (
             <option
               key={ index }
-              data-testid="customer_checkout__select-seller"
               value={ vend.name }
             >
               { vend.name }
