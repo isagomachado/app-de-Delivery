@@ -24,7 +24,6 @@ export default function CheckoutBody() {
   const handleButtonRemove = ({ target }) => {
     const { id } = target;
     const newCart = cart.filter((prod) => prod.name !== id);
-    // console.log(newCart);
     setCart(newCart);
   };
 
@@ -56,7 +55,8 @@ export default function CheckoutBody() {
       saleDate: new Date(),
       status: 'Pendente',
     };
-    const { id, header, user } = await registerSales({ objSale, cart }, token);
+    const cartIds = cart.map((prod) => ({ id: prod.id, qty: prod.qty }));
+    const { id, header, user } = await registerSales({ objSale, cartIds }, token);
     console.log(header);
     console.log(user);
     navegate(`/customer/orders/${id}`);

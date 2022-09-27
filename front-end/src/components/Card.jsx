@@ -11,10 +11,11 @@ export default function Card() {
   const [valueTotal, setValueTotal] = useState(0);
   const [cart, setCart] = useState([]);
 
-  const addCart = (name, price, qty) => {
+  const addCart = (name, price, qty, id) => {
     const findProd = cart.filter((prod) => prod.name !== name);
 
     const save = {
+      id,
       name,
       qty,
       price,
@@ -47,41 +48,38 @@ export default function Card() {
   };
 
   const inputQuantity = ({ target }) => {
-    const { value, name, id: price } = target;
+    const { value, name, id, className } = target;
+    const priceNumber = parseFloat(className);
     const qtyNumber = parseFloat(value);
-    const priceNumber = parseFloat(price);
+    const prodId = parseFloat(id);
 
-    addCart(name, priceNumber, qtyNumber);
+    addCart(name, priceNumber, qtyNumber, prodId);
     setQuantity({ ...quantity, [name]: qtyNumber });
     calcInput(qtyNumber, name, priceNumber);
   };
 
   const incrementeQuantity = ({ target }) => {
-    const { name, value } = target;
+    const { name, value, id } = target;
     const sum = typeof quantity[name] !== 'number' ? 0 : quantity[name];
     const qty = sum + 1;
 
     setQuantity({ ...quantity, [name]: qty });
-    addCart(name, value, qty);
+    addCart(name, value, qty, +id);
     sumTotal(value);
   };
 
   const decrementeQuantity = ({ target }) => {
-    const { name, value } = target;
+    const { name, value, id } = target;
     if (quantity[name] === 0 || quantity[name] === undefined) {
       setQuantity({ ...quantity, [name]: 0 });
     } else {
       const qty = quantity[name] - 1;
       setQuantity({ ...quantity, [name]: quantity[name] - 1 });
-      addCart(name, value, qty);
+      addCart(name, value, qty, +id);
 
       subTotal(value);
     }
   };
-
-  // const saveStorage = () => {
-  //   localStorage.setItem('cart', JSON.stringify(cart));
-  // };
 
   const checkOut = () => {
     navigate('/customer/checkout');
@@ -98,7 +96,7 @@ export default function Card() {
     <>
       <main style={ { display: 'flex' } }>
         {products
-          && products.map((prod, index) => (
+          && products.map((prod) => (
             <div
               key={ prod.id }
               style={ { border: '2px solid white' } }
@@ -123,7 +121,7 @@ export default function Card() {
                   data-testid={ `customer_products__button-card-rm-item-${prod.id}` }
                   type="button"
                   name={ prod.name }
-                  id={ `quantity-${prod.id}` }
+                  id={ prod.id }
                   value={ prod.price }
                   onClick={ (e) => decrementeQuantity(e) }
                 >
@@ -134,7 +132,8 @@ export default function Card() {
                   name={ prod.name }
                   min="0"
                   onChange={ (e) => inputQuantity(e) }
-                  id={ prod.price }
+                  id={ prod.id }
+                  className={ prod.price }
                   type="number"
                   data-testid={ `customer_products__input-card-quantity-${prod.id}` }
                 />
@@ -142,7 +141,7 @@ export default function Card() {
                   data-testid={ `customer_products__button-card-add-item-${prod.id}` }
                   type="button"
                   name={ prod.name }
-                  id={ index }
+                  id={ prod.id }
                   value={ prod.price }
                   onClick={ (e) => incrementeQuantity(e) }
                 >
