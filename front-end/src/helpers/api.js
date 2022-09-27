@@ -21,3 +21,18 @@ export const getAllproducts = async () => {
     .catch((error) => error.response.data);
   return response.data;
 };
+
+export const registerSales = async (sale, token) => {
+  const response = await api
+    .post('/sale', sale, {
+      headers: {
+        Authorization: token,
+      } });
+  return response.data;
+};
+
+export const getSallers = async () => {
+  const response = await api
+    .get('/getsellers');
+  return response.data;
+};
