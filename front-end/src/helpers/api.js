@@ -36,3 +36,9 @@ export const getSallers = async () => {
     .get('/getsellers');
   return response.data;
 };
+
+export const getAllSale = async () => {
+  const response = await api
+    .get('/sale');
+  return response.data;
+};
