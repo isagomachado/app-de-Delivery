@@ -12,7 +12,7 @@ export default function LoginForm() {
   const { setDataLogin, dataLogin } = useContext(DeliveryContext);
 
   const redirectRoute = (role) => {
-    if (role === 'seller') navigate('/seller');
+    if (role === 'seller') navigate('/seller/orders');
     if (role === 'customer') navigate('/customer/products');
     if (role === 'administrator') navigate('/admin/manage');
   };
