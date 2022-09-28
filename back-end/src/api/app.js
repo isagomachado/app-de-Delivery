@@ -9,6 +9,7 @@ const registerRoute = require('../routes/register');
 const getSallers = require('../routes/getSallers');
 const sale = require('../routes/sale');
 const productsRoute = require('../routes/products');
+const adminManageRoute = require('../routes/adminManage');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/sale', sale);
 app.use('/customer/products', productsRoute);
+app.use('/admin/manage', adminManageRoute);
 
 app.use(errorHandle);
 

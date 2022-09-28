@@ -3,6 +3,7 @@ const typeErrors = {
   EmailAlreadyExists: 'EmailAlreadyExists',
   UnauthorizedError: 'UnauthorizedError',
   ValidationError: 'ValidationError',
+  NameAlreadyExists: 'NameAlreadyExists',
 };
 
 module.exports = typeErrors;

@@ -14,7 +14,7 @@ export default function LoginForm() {
   const redirectRoute = (role) => {
     if (role === 'seller') navigate('/seller/orders');
     if (role === 'customer') navigate('/customer/products');
-    if (role === 'administrator') navigate('/administrator');
+    if (role === 'administrator') navigate('/admin/manage');
   };
 
   const handleChange = ({ target }) => {

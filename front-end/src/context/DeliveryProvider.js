@@ -6,6 +6,13 @@ import { getAllproducts } from '../helpers/api';
 
 export default function DeliveryProvider({ children }) {
   const [dataRegister, setDataRegister] = useState({ name: '', email: '', password: '' });
+  const [erroResponseAdmin, setErroResponseAdmin] = useState('');
+  const [dataAdminRegister, setDataAdminRegister] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: '',
+  });
   const [dataLogin, setDataLogin] = useState({ email: '', password: '' });
   const [products, setProducts] = useState([]);
 
@@ -25,7 +32,11 @@ export default function DeliveryProvider({ children }) {
     setProducts,
     dataRegister,
     setDataRegister,
-  }), [dataLogin, products, dataRegister]);
+    dataAdminRegister,
+    setDataAdminRegister,
+    erroResponseAdmin,
+    setErroResponseAdmin,
+  }), [dataLogin, products, dataRegister, dataAdminRegister, erroResponseAdmin]);
 
   return (
     <DeliveryContext.Provider value={ contextValue }>

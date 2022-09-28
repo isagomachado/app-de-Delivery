@@ -8,7 +8,7 @@ const tokenMiddleware = async (req, _res, next) => {
   if (!auth) throw new ErrorsCode('NotFound', 'Token not found', 404);
 
   const token = auth.includes('Bearer') ? auth.split(' ')[1] : auth;
-  const data = await LoginService.verifyToken(token);
+  const data = await LoginService.validateToken(token);
   req.user = data;
 
   next();
