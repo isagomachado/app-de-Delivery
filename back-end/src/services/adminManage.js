@@ -6,29 +6,39 @@ const ErrorsCode = require('../errors/ErrorsCode');
 class AdminManageService {
   static async create({ name, email, password, role }) {
     const hashPass = md5(password);
-
     const aux = {
       name,
       email,
       password: hashPass,
       role,
     };
-
-    const existsEmail = await this.checkExists(email);
+    const existsEmail = await this.checkExistsEmail(email);
     if (existsEmail) {
       throw new ErrorsCode('EmailAlreadyExists', 'Email already Exists', 409);
     }
-
+    const existsName = await this.checkExistsName(name);
+    if (existsName) {
+      throw new ErrorsCode('NameAlreadyExists', 'Name already Exists', 409);
+    }
     const user = await models.User.create(aux, {
       raw: true,
     });
-
     return user;
   }
   
-  static async checkExists(email) {
-    const exists = await models.User.findOne({ where: { email } });
-    if (!exists) {
+  static async checkExistsEmail(email) {
+    const existsEmail = await models.User.findOne({ where: { email } });
+
+    if (!existsEmail) {
+      return false;
+    }
+    return true;
+  }
+
+  static async checkExistsName(name) {
+    const existsName = await models.User.findOne({ where: { name } });
+
+    if (!existsName) {
       return false;
     }
     return true;

@@ -22,8 +22,13 @@ export const getAllproducts = async () => {
   return response.data;
 };
 
-export const adminRegisterUser = async ({ email, password, name, role }) => {
+export const adminRegisterUser = async (data, token) => {
   const response = await api
-    .post('/admin/manage', { email, password, name, role });
+    .post('/admin/manage', data, {
+      headers: {
+        Authorization: token,
+      },
+    });
+  console.log(response);
   return response;
 };

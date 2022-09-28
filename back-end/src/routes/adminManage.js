@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const AdminManageController = require('../controllers/adminManage');
-const tokenMiddleware = require('../middlewares/tokenMiddleware')
-
+const tokenMiddleware = require('../middlewares/tokenMiddleware');
 
 const adminManage = Router();
 

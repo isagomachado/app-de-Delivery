@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import DeliveryContext from '../context/DeliveryContext';
 import { adminRegisterUser } from '../helpers/api';
 
 export default function NewUserFormAdmin() {
+  const [token, setToken] = useState('');
   const {
     dataAdminRegister,
     setDataAdminRegister,
     setErroResponseAdmin,
   } = useContext(DeliveryContext);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setToken(user.token);
+  }, []);
 
   const regex = /\S+@\S+\.\S+/;
   const numberTwelve = 12;
@@ -84,7 +90,7 @@ export default function NewUserFormAdmin() {
             data-testid="admin_manage__select-role"
             onChange={ handleChange }
           >
-            <option value="seller" selected>Vendedor</option>
+            <option value="seller" defaultValue>Vendedor</option>
             <option value="customer">Cliente</option>
           </select>
         </label>
@@ -96,7 +102,8 @@ export default function NewUserFormAdmin() {
           onClick={ async () => {
             try {
               console.log(dataAdminRegister);
-              const response = await adminRegisterUser(dataAdminRegister);
+              console.log(token);
+              const response = await adminRegisterUser(dataAdminRegister, token);
               console.log(response);
             } catch (err) {
               console.log(err);

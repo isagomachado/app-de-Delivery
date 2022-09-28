@@ -4,18 +4,17 @@ const ErrorsCode = require('../errors/ErrorsCode');
 
 class AdminManageController {
   static async create(req, res) {
-    if (req.user.payload.role === 'administrator') {
-      await Validate.adminRegisterBody(req.body);
-      const user = await AdminManageService.create(req.body);
-      const responseUser = {
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      };
-      return res.status(201).json(responseUser);
-    } else {
+    if (req.user.payload.role !== 'administrator') {
       throw new ErrorsCode('UnauthorizedError', 'Unauthorized', 401);
     }
+    await Validate.adminRegisterBody(req.body);
+    const user = await AdminManageService.create(req.body);
+    const responseUser = {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    return res.status(201).json(responseUser);
   }
 }
 
