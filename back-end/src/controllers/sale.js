@@ -19,6 +19,12 @@ class SaleController {
     );
     return res.status(201).json({ id: sale.id });
   }
+
+  static async getOne(req, res) {
+    const { id } = req.params;
+    const result = await SaleService.getOne(id);
+    return res.status(200).json(result);
+  }
 }
 
 module.exports = SaleController;

@@ -1,7 +1,12 @@
 import React from 'react';
+import CardOrders from '../components/CardOrders';
+import Navbar from '../components/Navbar';
 
-export default function CostumerOrders() {
+export default function Orders() {
   return (
-    <h1>Costumer/orders</h1>
+    <>
+      <Navbar />
+      <CardOrders />
+    </>
   );
 }

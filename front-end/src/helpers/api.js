@@ -12,7 +12,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const registerUser = async ({ email, password, name }) => {
   const response = await api
-    .post('/register', { email, password, name });
+    .post('/register', { email, password, name }).catch((error) => error.response.data);
   return response;
 };
 
@@ -27,12 +27,18 @@ export const registerSales = async (sale, token) => {
     .post('/sale', sale, {
       headers: {
         Authorization: token,
-      } });
+      },
+    }).catch((error) => error.response);
   return response.data;
 };
 
 export const getSallers = async () => {
   const response = await api
     .get('/getsellers');
+  return response.data;
+};
+
+export const getSalesById = async (id) => {
+  const response = await api.get(`/sale/${id}`).catch((error) => error.response);
   return response.data;
 };

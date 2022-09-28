@@ -21,6 +21,16 @@ export default function RegisterForm() {
   const checkPassword = () => dataRegister.password.length >= numberSix;
   const checkEmail = () => regex.test(dataRegister.email);
 
+  const register = async () => {
+    const response = await registerUser(dataRegister);
+    if (response.message) {
+      setErroResponse(response.message);
+    } else {
+      localStorage.setItem('user', JSON.stringify(response.data));
+      navigate('/customer/products');
+    }
+  };
+
   return (
     <div>
       <h1>Cadastro</h1>
@@ -66,15 +76,7 @@ export default function RegisterForm() {
             type="button"
             data-testid="common_register__button-register"
             disabled={ !(checkEmail() && checkName() && checkPassword()) }
-            onClick={ async () => {
-              try {
-                const response = await registerUser(dataRegister);
-                console.log(response);
-                navigate('/customer/products');
-              } catch (err) {
-                setErroResponse('error');
-              }
-            } }
+            onClick={ register }
           >
             Cadastrar
           </button>

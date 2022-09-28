@@ -5,6 +5,15 @@ class SaleProductsService {
     const result = await models.SalesProduct.create(objSaleProduct);
     return result;
   }
+
+  static async getOne(saleId) {
+    const result = await models.SalesProduct.findAll({
+      where: { saleId },
+      raw: true,
+    });
+    
+    return result;
+  }
 }
 
 module.exports = SaleProductsService;

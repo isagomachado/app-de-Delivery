@@ -9,7 +9,7 @@ export default function CheckoutBody() {
   const [cart, setCart] = useState(produtos);
   const [addresUser, setAddress] = useState({ addres: '', addresNumber: '' });
   const [vendedor, setVendedor] = useState({ all: [], select: '' });
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const REPLACE = '.';
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function CheckoutBody() {
     };
     const cartIds = cart.map((prod) => ({ id: prod.id, qty: prod.qty }));
     const { id } = await registerSales({ objSale, cartIds }, token);
-    navegate(`/customer/orders/${id}`);
+    navigate(`/customer/orders/${id}`);
   };
 
   return (

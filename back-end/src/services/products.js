@@ -5,6 +5,15 @@ class ProductsService {
     const products = await models.Product.findAll();
     return products;
   }
+
+  static async getOne(id) {
+    const result = await models.Product.findAll({
+      where: { id },
+      raw: true,
+    });
+    
+    return result;
+  }
 }
 
 module.exports = ProductsService;
