@@ -40,6 +40,20 @@ class Validate {
         role: Joi.string().required(),
       });
       
+  static async saleBody(body) {
+    try {
+      const schema = Joi.object({
+        objSale: Joi.object({
+          userId: Joi.number(),
+          sellerId: Joi.string(),
+          totalPrice: Joi.string(),
+          deliveryAddress: Joi.string(),
+          deliveryNumber: Joi.string(),
+          status: Joi.string(),
+        }),
+        products: Joi.array(),
+      });
+
       const result = await schema.validateAsync(body);
       return result;
     } catch (error) {

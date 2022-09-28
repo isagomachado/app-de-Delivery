@@ -20,8 +20,8 @@ class LoginService {
       throw new ErrorsCode('UnauthorizedError', 'Email or password invalid', 404);
     }
 
-    const { password: pass, id: idUser, ...data } = user;
-    const token = LoginService.createToken(data);
+    const { password: pass, id: userId, ...data } = user;
+    const token = LoginService.createToken({ ...data, userId });
 
     return { ...data, token };
   }

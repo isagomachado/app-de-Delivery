@@ -32,3 +32,18 @@ export const adminRegisterUser = async (data, token) => {
   console.log(response);
   return response;
 };
+
+export const registerSales = async (sale, token) => {
+  const response = await api
+    .post('/sale', sale, {
+      headers: {
+        Authorization: token,
+      } });
+  return response.data;
+};
+
+export const getSallers = async () => {
+  const response = await api
+    .get('/getsellers');
+  return response.data;
+};
