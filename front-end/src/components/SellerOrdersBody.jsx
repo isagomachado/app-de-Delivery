@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-// import { useNavigate } from 'react-router-dom';
 import { getAllSale } from '../helpers/api';
-// import {  } from 'react';
-// import  from 'react';
+import CardOrders from './CardOrders';
 
 export default function SellerOrdersBody() {
   const [orders, setOrders] = useState([]);
@@ -17,39 +14,22 @@ export default function SellerOrdersBody() {
     allSale();
   }, []);
 
-  // const handleClickcard = () => {
-  //   console.log('asdasd');
-  // };
-
+  const objDataTestIds = {
+    elementId: 'seller_orders__element-order-id-',
+    status: 'seller_orders__element-delivery-status-',
+    cardAddress: 'seller_orders__element-card-address-',
+    cardPrice: 'seller_orders__element-card-price-',
+    orderDate: 'seller_orders__element-order-date-',
+  };
   return (
     <div>
-      { orders.length > 0 && orders.map((order, index) => (
-        <div
-          key={ index }
-        >
-          <div>
-            Pedido:
-            {' '}
-            <Link
-              to={ `/seller/orders/${order.id}` }
-              data-testid={ `seller_orders__element-order-id-${order.id}` }
-            >
-              {order.id}
-            </Link>
-          </div>
-          <div data-testid={ `seller_orders__element-delivery-status-${order.id}` }>
-            {order.status}
-          </div>
-          <div data-testid={ `seller_orders__element-card-address-${order.id}` }>
-            {`${order.deliveryAddress}, ${order.deliveryNumber}`}
-          </div>
-          <div data-testid={ `seller_orders__element-card-price-${order.id}` }>
-            {order.totalPrice}
-          </div>
-          <div data-testid={ `seller_orders__element-order-date-${order.id}` }>
-            {order.saleDate}
-          </div>
-        </div>
+      { orders.length > 0 && orders.map((odr) => (
+        <CardOrders
+          key={ odr.id }
+          urlLink="/seller/orders/"
+          order={ odr }
+          objDataTestIds={ objDataTestIds }
+        />
       ))}
     </div>
   );
