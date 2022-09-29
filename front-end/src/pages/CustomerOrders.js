@@ -1,12 +1,12 @@
 import React from 'react';
-import CardOrders from '../components/CardOrders';
+import TableOrderDetails from '../components/TableOrderDetails';
 import Navbar from '../components/Navbar';
 
 export default function Orders() {
   return (
     <>
       <Navbar />
-      <CardOrders />
+      <TableOrderDetails />
     </>
   );
 }

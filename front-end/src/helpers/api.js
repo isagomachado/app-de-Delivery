@@ -42,3 +42,9 @@ export const getSalesById = async (id) => {
   const response = await api.get(`/sale/${id}`).catch((error) => error.response);
   return response.data;
 };
+
+export const getAllSale = async () => {
+  const response = await api
+    .get('/sale');
+  return response.data;
+};

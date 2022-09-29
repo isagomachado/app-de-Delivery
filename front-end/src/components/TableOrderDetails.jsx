@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSalesById } from '../helpers/api';
 
-export default function CardOrders() {
+export default function TableOrderDetails() {
   const testId = {
     sellerName: 'customer_order_details__element-order-details-label-seller-name',
     date: 'customer_order_details__element-order-details-label-order-date',

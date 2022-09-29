@@ -8,6 +8,12 @@ class SaleService {
     return result;
   }
 
+  static async getAll() {
+    const result = await models.Sale.findAll();
+    if (!result) throw new ErrorsCode('NotFound', 'No sale registered', 404);
+    return result;
+  }
+
   static async formatedProducts(salesProducts, product) {
     const products = await Promise.all(salesProducts.map((sale, index) => {
       const prod = product.map((item) => item);
