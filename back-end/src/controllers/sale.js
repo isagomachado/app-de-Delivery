@@ -34,7 +34,7 @@ class SaleController {
 
   static async updateSaleStatus(req, res) {
     const { status } = req.body;
-    const { id } = req.params
+    const { id } = req.params;
     const result = await SaleService.updateSaleStatus(status, id);
     return res.status(200).json(result);
   }

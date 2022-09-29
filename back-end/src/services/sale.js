@@ -19,7 +19,6 @@ class SaleService {
       include: [{
         model: models.Product,
         as: 'product',
-        // through: { attributes: [] }
       }],
     });
     return result;
@@ -28,7 +27,8 @@ class SaleService {
   static async updateSaleStatus(newStatus, id) {
     const result = await models.Sale.update(
       { status: newStatus },
-      { where: { id }});
+      { where: { id } },
+    );
     return result;
   }
 }
