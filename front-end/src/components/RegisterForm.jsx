@@ -36,7 +36,7 @@ export default function RegisterForm() {
       <h1>Cadastro</h1>
       <div>
         <form>
-          <label htmlFor="email-input">
+          <label htmlFor="name-input">
             Nome
             <input
               placeholder="Seu nome"
@@ -49,7 +49,7 @@ export default function RegisterForm() {
           </label>
 
           <label htmlFor="email-input">
-            Login
+            Email
             <input
               placeholder="seu-email@site.com.br"
               type="email"
