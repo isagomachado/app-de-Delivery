@@ -15,7 +15,6 @@ class RegisterService {
     };
 
     const existsEmail = await this.checkExists(email);
-    console.log(existsEmail);
     if (existsEmail) {
       throw new ErrorsCode('EmailAlreadyExists', 'Email already Exists', 409);
     }

@@ -3,7 +3,6 @@ const Validate = require('../services/validations');
 
 class RegisterController {
   static async create(req, res) {
-    console.log(req.body);
     await Validate.registerBody(req.body);
     const user = await RegisterService.create(req.body);
     const responseUser = {
