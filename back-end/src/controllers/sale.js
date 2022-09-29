@@ -24,6 +24,13 @@ class SaleController {
     const orders = await SaleService.getAll();
     return res.status(200).json(orders);
   }
+
+  static async getById(req, res) {
+    const { id } = req.params;
+    const sale = await SaleService.getById(id);
+    // const products = await Sale
+    return res.status(200).json(sale);
+  }
 }
 
 module.exports = SaleController;

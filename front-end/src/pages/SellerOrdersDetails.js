@@ -1,7 +1,12 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
+import SellerOrdersBodyDetails from '../components/SellerOrdersBodyDetails';
 
 export default function SellerOrdersDetails() {
   return (
-    <h1>/seller/orders/:id</h1>
+    <>
+      <Navbar />
+      <SellerOrdersBodyDetails />
+    </>
   );
 }

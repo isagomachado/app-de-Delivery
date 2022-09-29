@@ -53,3 +53,9 @@ export const getAllSale = async () => {
     .get('/sale');
   return response.data;
 };
+
+export const getSaleById = async (id) => {
+  const response = await api
+    .get(`/sale/${id}`);
+  return response.data;
+};

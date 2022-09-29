@@ -12,6 +12,18 @@ class SaleService {
     if (!result) throw new ErrorsCode('', '', 404);
     return result;
   }
+
+  static async getById(id) {
+    const result = await models.Sale.findOne({
+      where: { id },
+      include: [{
+        model: models.Product,
+        as: 'product',
+        // through: { attributes: [] }
+      }],
+    });
+    return result;
+  }
 }
 
 module.exports = SaleService;
