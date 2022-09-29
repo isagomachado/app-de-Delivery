@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 
 export default function CardOrders({ urlLink, order, objDataTestIds }) {
   return (
-    <div>
+    <Link
+      to={ `${urlLink}${order.id}` }
+    >
       <div>
         Pedido:
         {' '}
-        <Link
-          to={ `${urlLink}${order.id}` }
+        <div
           data-testid={ `${objDataTestIds.elementId}${order.id}` }
         >
           {order.id}
-        </Link>
+        </div>
       </div>
       <div data-testid={ `${objDataTestIds.status}${order.id}` }>
         {order.status}
@@ -27,7 +28,7 @@ export default function CardOrders({ urlLink, order, objDataTestIds }) {
       <div data-testid={ `${objDataTestIds.orderDate}${order.id}` }>
         {order.saleDate}
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -24,6 +24,13 @@ class SaleService {
     });
     return result;
   }
+
+  static async updateSaleStatus(newStatus, id) {
+    const result = await models.Sale.update(
+      { status: newStatus },
+      { where: { id }});
+    return result;
+  }
 }
 
 module.exports = SaleService;
