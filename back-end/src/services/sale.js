@@ -14,7 +14,6 @@ class SaleService {
     return result;
   }
 
-
   static async getById(id) {
     const result = await models.Sale.findOne({
       where: { id },
