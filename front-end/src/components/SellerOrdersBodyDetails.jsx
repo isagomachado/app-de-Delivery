@@ -6,17 +6,17 @@ export default function SellerOrdersBodyDetails() {
   const { id } = useParams();
   const [order, setOrder] = useState({});
   const [prodcs, setProdcs] = useState([]);
-  // const [desable, setDesable] = useState(true);
   const [desable, setDesable] = useState([true, true]);
   const REPLACE = '.';
 
   useEffect(() => {
     const getSaleId = async () => {
       const sale = await getSaleById(id);
-      const { product: prod, ...data } = sale;
-      if (data.status === 'Pendente') setDesable([false, true]);
-      if (data.status === 'Preparando') setDesable([true, false]);
-      setOrder(data);
+      const { products: prod, ...data } = sale;
+      console.log(data.sale);
+      if (data.sale.status === 'Pendente') setDesable([false, true]);
+      if (data.sale.status === 'Preparando') setDesable([true, false]);
+      setOrder(data.sale);
       setProdcs(prod);
     };
     getSaleId();
@@ -25,18 +25,13 @@ export default function SellerOrdersBodyDetails() {
 
   const handleButtonPreparing = async () => {
     await updateSaleStatus({ status: 'Preparando' }, id);
-    // console.log(retorno);
-
     // document.location.reload(true);
-    // setDesable(false);
   };
   const handleButtonDispatch = async () => {
     await updateSaleStatus({ status: 'Em Trânsito' }, id);
     // document.location.reload(true);
-    // setDesable([false, true]);
   };
 
-  // console.log(order);
   const dTIStatus = 'seller_order_details__element-order-details-label-delivery-status';
   return (
     <div>
@@ -113,7 +108,7 @@ export default function SellerOrdersBodyDetails() {
                   `seller_order_details__element-order-table-quantity-${index}`
                 }
               >
-                {prod.SalesProduct.quantity}
+                {prod.quantity}
               </td>
               <td
                 data-testid={
@@ -127,7 +122,7 @@ export default function SellerOrdersBodyDetails() {
                   `seller_order_details__element-order-table-sub-total-${index}`
                 }
               >
-                {(Number(prod.price) * prod.SalesProduct.quantity)
+                {(Number(prod.price) * prod.quantity)
                   .toFixed(2).replace(REPLACE, ',')}
               </td>
             </tr>
