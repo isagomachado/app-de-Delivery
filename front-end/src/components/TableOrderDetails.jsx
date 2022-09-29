@@ -57,6 +57,7 @@ export default function TableOrderDetails() {
               </h2>
               <button
                 data-testid="customer_order_details__button-delivery-check"
+                disabled
                 type="button"
               >
                 MARCAR COMO ENTREGUE
