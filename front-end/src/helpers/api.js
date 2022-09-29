@@ -29,7 +29,6 @@ export const adminRegisterUser = async (data, token) => {
         Authorization: token,
       },
     });
-  console.log(response);
   return response;
 };
 
