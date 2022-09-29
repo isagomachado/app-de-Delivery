@@ -32,6 +32,7 @@ class SaleService {
       { where: { id } },
     );
     return result;
+  }
 
   static async formatedProducts(salesProducts, product) {
     const products = await Promise.all(salesProducts.map((sale, index) => {
