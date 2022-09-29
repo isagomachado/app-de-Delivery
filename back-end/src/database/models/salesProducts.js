@@ -38,16 +38,25 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   SalesProduct.associate = (models) => {
-    SalesProduct.belongsTo(models.Sale, {
-      foreignKey: 'saleId', as: 'sale',
+    models.Product.belongsToMany(models.Sale, {
+      foreignKey: 'productId',
+      otherKey: 'saleId',
+      through: SalesProduct,
+      as: 'sale',
+    });
+    models.Sale.belongsToMany(models.Product, {
+      foreignKey: 'saleId',
+      otherKey: 'productId',
+      through: SalesProduct,
+      as: 'product',
     });
   };
 
-  SalesProduct.associate = (models) => {
-    SalesProduct.belongsTo(models.Product, {
-      foreignKey: 'productId', as: 'product',
-    });
-  };
+  // SalesProduct.associate = (models) => {
+  //   SalesProduct.belongsTo(models.Product, {
+  //     foreignKey: 'productId', as: 'product',
+  //   });
+  // };
 
   return SalesProduct;
 };

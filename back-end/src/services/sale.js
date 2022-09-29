@@ -14,6 +14,25 @@ class SaleService {
     return result;
   }
 
+  static async getById(id) {
+    const result = await models.Sale.findOne({
+      where: { id },
+      include: [{
+        model: models.Product,
+        as: 'product',
+      }],
+    });
+    return result;
+  }
+
+  static async updateSaleStatus(newStatus, id) {
+    const result = await models.Sale.update(
+      { status: newStatus },
+      { where: { id } },
+    );
+    return result;
+  }
+
   static async formatedProducts(salesProducts, product) {
     const products = await Promise.all(salesProducts.map((sale, index) => {
       const prod = product.map((item) => item);

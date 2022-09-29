@@ -8,4 +8,8 @@ sale.route('/')
   .post(SaleController.create)
   .get(SaleController.getAll);
 
+sale
+  .route('/:id')
+  .get(SaleController.getById)
+  .patch(SaleController.updateSaleStatus);
 module.exports = sale;
