@@ -50,6 +50,5 @@ class SaleController {
     const result = await SaleService.updateSaleStatus(status, id);
     return res.status(200).json(result);
   }
-  
 }
 module.exports = SaleController;
