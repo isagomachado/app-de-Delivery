@@ -1,7 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// import { Button } from '@mui/material';
+
 import DeliveryContext from '../context/DeliveryContext';
 import { loginUser } from '../helpers/api';
+
+import '../styles/LoginForm.css';
 
 const LENGTH_PASSWORD = 6;
 const REGEX_EMAIL = /^[a-z0-9-_\]@[a-z0-9]+\.[a-z]?/i;
@@ -36,11 +41,12 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <form>
-        <label htmlFor="email-input">
+    <div className="container-login-error">
+      <form className="container-form">
+        <label htmlFor="email-input" className="label-login">
           Login
           <input
+            className="input-login"
             placeholder="email@seuemail.com"
             type="email"
             name="email"
@@ -50,9 +56,10 @@ export default function LoginForm() {
           />
         </label>
 
-        <label htmlFor="password-input">
+        <label htmlFor="password-input" className="label-login">
           Senha
           <input
+            className="input-login"
             placeholder="*********"
             type="password"
             name="password"
@@ -61,8 +68,9 @@ export default function LoginForm() {
             onChange={ handleChange }
           />
         </label>
-
+        {/* <Button variant="text">Text</Button> */}
         <button
+          className="login-button"
           type="button"
           data-testid="common_login__button-login"
           disabled={
@@ -75,18 +83,20 @@ export default function LoginForm() {
         </button>
 
         <button
+          className="account-button"
           type="button"
           data-testid="common_login__button-register"
           onClick={ () => navigate('/register') }
         >
           Ainda não tenho conta
         </button>
-        <p
-          data-testid="common_login__element-invalid-email"
-        >
-          { erroResponse }
-        </p>
       </form>
+      <p
+        className="error-message"
+        data-testid="common_login__element-invalid-email"
+      >
+        { erroResponse }
+      </p>
     </div>
   );
 }
