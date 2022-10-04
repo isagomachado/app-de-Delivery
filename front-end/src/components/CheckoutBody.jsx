@@ -101,7 +101,7 @@ export default function CheckoutBody() {
             </select>
           </label>
           <label htmlFor="address">
-            <p>Endereço</p>
+            <p>Endereço:</p>
             <input
               id="address"
               type="text"
@@ -111,7 +111,7 @@ export default function CheckoutBody() {
             />
           </label>
           <label htmlFor="number-house">
-            <p>Número</p>
+            <p>Número:</p>
             <input
               id="number-house"
               data-testid="customer_checkout__input-address-number"
