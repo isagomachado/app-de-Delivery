@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSalesById } from '../helpers/api';
+import { getSalesById, updateSaleStatus } from '../helpers/api';
 
 export default function TableOrderDetails() {
   const testId = {
@@ -26,6 +26,10 @@ export default function TableOrderDetails() {
     };
     getOrder();
   }, [id]);
+
+  const handleButtonCheck = async () => {
+    await updateSaleStatus({ status: 'Entregue' }, id);
+  };
 
   return (
     <main>
@@ -57,11 +61,11 @@ export default function TableOrderDetails() {
               </h2>
               <button
                 data-testid="customer_order_details__button-delivery-check"
-                disabled
+                disabled={ sale.status !== 'Em Trânsito' }
+                onClick={ handleButtonCheck }
                 type="button"
               >
                 MARCAR COMO ENTREGUE
-
               </button>
             </div>
             <table>

@@ -66,8 +66,17 @@ export const getSaleById = async (id) => {
 };
 
 export const updateSaleStatus = async (status, id) => {
-  // console.log(status);
   const response = await api
     .patch(`/sale/${id}`, status);
+  return response.data;
+};
+
+export const getAllSaleUser = async (token) => {
+  const response = await api
+    .get('/sale', {
+      headers: {
+        Authorization: token,
+      },
+    });
   return response.data;
 };

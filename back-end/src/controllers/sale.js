@@ -26,18 +26,24 @@ class SaleController {
     return res.status(200).json(result);
   }
 
-  static async getAll(_req, res) {
-    const orders = await SaleService.getAll();
-    return res.status(200).json(orders);
+  static async getAll(req, res) {
+    let result;
+    if (!req.headers.authorization) {
+      result = await SaleService.getAll();
+      // return res.status(200).json(orders);
+    } else {
+      const user = LoginService.validateToken(req.headers.authorization);
+      result = await SaleService.getSaleAllUser(user.payload.userId);
+    }
+    return res.status(200).json(result);
   }
-
+  
   static async getById(req, res) {
     const { id } = req.params;
     const sale = await SaleService.getById(id);
-    // const products = await Sale
     return res.status(200).json(sale);
   }
-
+  
   static async updateSaleStatus(req, res) {
     const { status } = req.body;
     const { id } = req.params;
@@ -45,5 +51,4 @@ class SaleController {
     return res.status(200).json(result);
   }
 }
-
 module.exports = SaleController;

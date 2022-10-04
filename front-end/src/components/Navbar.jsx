@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [nameUser, setNameUser] = useState('');
+  const [user, setUser] = useState('');
   const { setDataLogin, setProducts } = useContext(DeliveryContext);
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setNameUser(user.name);
+    const result = JSON.parse(localStorage.getItem('user'));
+    setUser(result);
   }, []);
 
   const removeDataUserContext = () => {
@@ -34,14 +34,24 @@ export default function Navbar() {
     <header>
       <nav>
         <ul style={ css }>
-          <li data-testid="customer_products__element-navbar-link-products">
-            Produtos
+          <li>
+            <Link
+              to={ `/${user.role}/products` }
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </Link>
           </li>
-          <li data-testid="customer_products__element-navbar-link-orders">
-            Meus Pedidos
+          <li>
+            <Link
+              to={ `/${user.role}/orders` }
+              data-testid="customer_products__element-navbar-link-orders"
+            >
+              Meus Pedidos
+            </Link>
           </li>
           <li data-testid="customer_products__element-navbar-user-full-name">
-            {nameUser}
+            {user.name}
           </li>
           <li>
             <button

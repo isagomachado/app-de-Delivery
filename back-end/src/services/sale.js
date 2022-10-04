@@ -75,6 +75,11 @@ class SaleService {
 
     return { sale, products };
   }
+
+  static async getSaleAllUser(userId) {
+    const result = await models.Sale.findAll({ where: { userId } });
+    return result;
+  }
 }
 
 module.exports = SaleService;

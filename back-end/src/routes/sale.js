@@ -12,4 +12,5 @@ sale
   .route('/:id')
   .get(SaleController.getById)
   .patch(SaleController.updateSaleStatus);
+
 module.exports = sale;
