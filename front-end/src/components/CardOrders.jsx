@@ -26,7 +26,7 @@ export default function CardOrders({ urlLink, order, objDataTestIds }) {
         {order.totalPrice}
       </div>
       <div data-testid={ `${objDataTestIds.orderDate}${order.id}` }>
-        {order.saleDate}
+        {order.saleDate.split('T')[0].split('-').reverse().join('/')}
       </div>
     </Link>
   );

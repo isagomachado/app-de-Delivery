@@ -139,18 +139,3 @@ export default function SellerOrdersBodyDetails() {
     </div>
   );
 }
-
-// PostCategory.associate = (models) => {
-//   models.Category.belongsToMany(models.BlogPost, {
-//     foreignKey: 'postId',
-//     otherKey: 'categoryId',
-//     through: models.PostCategory,
-//     as: 'category',
-//   });
-//   models.BlogPost.belongsToMany(models.Category, {
-//     foreignKey: 'categoryId',
-//     otherKey: 'postId',
-//     through: models.PostCategory,
-//     as: 'post',
-//   });
-// };
