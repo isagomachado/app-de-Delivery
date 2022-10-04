@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
+import '../styles/CardListProducts.css';
+
 export default function Card() {
   const REPLACE = '.';
   const navigate = useNavigate();
@@ -94,60 +96,68 @@ export default function Card() {
 
   return (
     <>
-      <main style={ { display: 'flex' } }>
+      <main className="grid-products">
         {products
           && products.map((prod) => (
             <div
-              key={ prod.id }
-              style={ { border: '2px solid white' } }
+              key={prod.id}
+              className="card-container"
             >
-              <div>
+              <div className="img-container">
                 <img
                   src={ prod.urlImage }
                   alt={ prod.name }
                   data-testid={ `customer_products__img-card-bg-image-${prod.id}` }
-                  width="100px"
-                  height="100px"
+                  className="img-card"
                 />
               </div>
-              <p data-testid={ `customer_products__element-card-title-${prod.id}` }>
-                {prod.name}
-              </p>
-              <p data-testid={ `customer_products__element-card-price-${prod.id}` }>
-                {prod.price.replace(REPLACE, ',')}
-              </p>
-              <label htmlFor={ `quantity-${prod.id}` }>
-                <button
-                  data-testid={ `customer_products__button-card-rm-item-${prod.id}` }
-                  type="button"
-                  name={ prod.name }
-                  id={ prod.id }
-                  value={ prod.price }
-                  onClick={ (e) => decrementeQuantity(e) }
-                >
-                  -
-                </button>
-                <input
-                  value={ quantity[prod.name] || 0 }
-                  name={ prod.name }
-                  min="0"
-                  onChange={ (e) => inputQuantity(e) }
-                  id={ prod.id }
-                  className={ prod.price }
-                  type="number"
-                  data-testid={ `customer_products__input-card-quantity-${prod.id}` }
-                />
-                <button
-                  data-testid={ `customer_products__button-card-add-item-${prod.id}` }
-                  type="button"
-                  name={ prod.name }
-                  id={ prod.id }
-                  value={ prod.price }
-                  onClick={ (e) => incrementeQuantity(e) }
-                >
-                  +
-                </button>
-              </label>
+              <div className="card-footer">
+                <div className="price-container">
+                  <p data-testid={ `customer_products__element-card-title-${prod.id}` }>
+                    {prod.name}
+                  </p>
+                  <p data-testid={ `customer_products__element-card-price-${prod.id}` }>
+                    {prod.price.replace(REPLACE, ',')}
+                  </p>
+                </div>
+
+                <label htmlFor={ `quantity-${prod.id}` } style={ { margin: "auto" } }>
+                  <button
+                    data-testid={ `customer_products__button-card-rm-item-${prod.id}` }
+                    type="button"
+                    name={prod.name}
+                    style={ { backgroundColor: "#f68104"} }
+                    id={ prod.id }
+                    value={ prod.price }
+                    onClick={ (e) => decrementeQuantity(e) }
+                  >
+                    -
+                  </button>
+                  <input
+                    value={ quantity[prod.name] || 0 }
+                    name={ prod.name }
+                    min="0"
+                    onChange={ (e) => inputQuantity(e) }
+                    id={ prod.id }
+                    className={ prod.price }
+                    type="number"
+                    data-testid={`customer_products__input-card-quantity-${prod.id}`}
+                    style={ { width: "25px" } }
+                  />
+                  <button
+                    data-testid={ `customer_products__button-card-add-item-${prod.id}` }
+                    type="button"
+                    name={ prod.name }
+                    id={ prod.id }
+                    value={ prod.price }
+                    onClick={(e) => incrementeQuantity(e)}
+                    style={ { backgroundColor: "#f68104"} }
+                  >
+                    +
+                  </button>
+                </label>
+              </div>
+            
             </div>
           ))}
       </main>

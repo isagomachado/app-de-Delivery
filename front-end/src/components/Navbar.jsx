@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import DeliveryContext from '../context/DeliveryContext';
 
+import '../styles/CardListProducts.css';
+
 export default function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState('');
@@ -28,10 +30,10 @@ export default function Navbar() {
     localStorage.removeItem('user');
   };
 
-  const css = { listStyleType: 'none' };
+  const css = { listStyleType: 'none', display: 'flex', width: '100vw' };
 
   return (
-    <header>
+    <header style={ { width: "100%" }}>
       <nav>
         <ul style={ css }>
           <li>
