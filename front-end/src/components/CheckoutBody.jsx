@@ -81,6 +81,7 @@ export default function CheckoutBody() {
             { handleTotal().replace(REPLACE, ',') }
           </span>
         </h1>
+        <hr />
         <h2>Detalhes e Endereço para Entrega</h2>
         <section className="section-checkout-address">
           <label htmlFor="select-seller">
