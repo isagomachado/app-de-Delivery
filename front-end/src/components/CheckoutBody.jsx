@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { getSallers, registerSales } from '../helpers/api';
 import Table from './Table';
 
+import '../styles/CheckoutBody.css';
+
 export default function CheckoutBody() {
   const produtos = JSON.parse(localStorage.getItem('cart'));
   const { token } = JSON.parse(localStorage.getItem('user'));
@@ -61,13 +63,15 @@ export default function CheckoutBody() {
   };
 
   return (
-    <div>
-      <section>
-        <h1>Finalizar pedido</h1>
-        <Table
-          cart={ cart }
-          handleButtonRemove={ handleButtonRemove }
-        />
+    <main className="container-checkout">
+      <div className="container-sections">
+        <h2>Finalizar pedido</h2>
+        <section className="section-checkout-products">
+          <Table
+            cart={ cart }
+            handleButtonRemove={ handleButtonRemove }
+          />
+        </section>
         <h1>
           Total: R$
           {' '}
@@ -77,44 +81,54 @@ export default function CheckoutBody() {
             { handleTotal().replace(REPLACE, ',') }
           </span>
         </h1>
-      </section>
-      <section>
-        Detalhes e Endereço para Entrega
-        <p>P. Vendedora Responsável:</p>
-        <select
-          data-testid="customer_checkout__select-seller"
-        >
-          { vendedor.all.length !== 0 && vendedor.all.map((vend, index) => (
-            <option
-              key={ index }
-              value={ vend.name }
+        <h2>Detalhes e Endereço para Entrega</h2>
+        <section className="section-checkout-address">
+          <label htmlFor="select-seller">
+            <p>P. Vendedora Responsável:</p>
+            <select
+              id="select-seller"
+              data-testid="customer_checkout__select-seller"
             >
-              { vend.name }
-            </option>
-          ))}
-        </select>
-        <p>Endereço</p>
-        <input
-          type="text"
-          name="addres"
-          data-testid="customer_checkout__input-address"
-          onChange={ handleAddress }
-        />
-        <p>Número</p>
-        <input
-          data-testid="customer_checkout__input-address-number"
-          type="number"
-          name="addresNumber"
-          onChange={ handleAddress }
-        />
+              { vendedor.all.length !== 0 && vendedor.all.map((vend, index) => (
+                <option
+                  key={ index }
+                  value={ vend.name }
+                >
+                  { vend.name }
+                </option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="address">
+            <p>Endereço</p>
+            <input
+              id="address"
+              type="text"
+              name="addres"
+              data-testid="customer_checkout__input-address"
+              onChange={ handleAddress }
+            />
+          </label>
+          <label htmlFor="number-house">
+            <p>Número</p>
+            <input
+              id="number-house"
+              data-testid="customer_checkout__input-address-number"
+              type="number"
+              name="addresNumber"
+              onChange={ handleAddress }
+            />
+          </label>
+        </section>
         <button
+          className="finish-checkout"
           data-testid="customer_checkout__button-submit-order"
           type="button"
           onClick={ handleButtonSubmitOrder }
         >
           Finalizar Pedido
         </button>
-      </section>
-    </div>
+      </div>
+    </main>
   );
 }

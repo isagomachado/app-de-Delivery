@@ -1,0 +1,62 @@
+* {
+  background-color: #fce0be;
+}
+
+.container-sections {
+  background-color: #fce0be;
+  color: #5c0601;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  margin-left: 10px;
+
+}
+
+h2 {
+  margin: 0 10px;
+}
+
+
+input {
+  background-color: #fce0be;
+  border: 1px solid #5c0601;
+  margin-bottom: 8px;
+}
+
+td button {
+  background-color: #f68104;
+  border: none;
+  color: wheat;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.section-checkout-products {
+}
+
+.section-checkout-address {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.finish-checkout {
+  background-color: #f68104;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px;
+}
+
+#select-seller {
+  background-color: #fce0be;
+  color: #5c0601;
+  width: 200px;
+}

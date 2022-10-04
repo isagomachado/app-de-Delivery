@@ -33,7 +33,7 @@ export default function Navbar() {
   const css = { listStyleType: 'none', display: 'flex', width: '100vw' };
 
   return (
-    <header style={ { width: "100%" }}>
+    <header style={ { width: '100%' } }>
       <nav>
         <ul style={ css }>
           <li>
