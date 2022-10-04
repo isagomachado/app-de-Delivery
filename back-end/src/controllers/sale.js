@@ -27,14 +27,15 @@ class SaleController {
   }
 
   static async getAll(req, res) {
-    if(!req.headers.authorization) {
-      const orders = await SaleService.getAll();
-      return res.status(200).json(orders);
+    let result;
+    if (!req.headers.authorization) {
+      result = await SaleService.getAll();
+      // return res.status(200).json(orders);
     } else {
       const user = LoginService.validateToken(req.headers.authorization);
-      const result = await SaleService.getSaleAllUser(user.payload.userId);
-      return res.status(200).json(result);
+      result = await SaleService.getSaleAllUser(user.payload.userId);
     }
+    return res.status(200).json(result);
   }
   
   static async getById(req, res) {
@@ -51,5 +52,4 @@ class SaleController {
   }
   
 }
-
 module.exports = SaleController;

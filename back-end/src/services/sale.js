@@ -77,7 +77,7 @@ class SaleService {
   }
 
   static async getSaleAllUser(userId) {
-    const result = await models.Sale.findAll({ where: { userId }});
+    const result = await models.Sale.findAll({ where: { userId } });
     return result;
   }
 }
