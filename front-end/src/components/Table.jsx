@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 export default function Table({ cart, handleButtonRemove }) {
   const REPLACE = '.';
   return (
-    <table>
+    <table style={ { borderCollapse: 'separate', borderSpacing: '50px 0' } }>
       <thead>
         <tr>
-          <th>Item</th>
+          <th style={ { padding: '10px 0' } }>Item</th>
           <th>Descrição</th>
           <th>Quantidade</th>
           <th>Valor Unitário</th>
-          <th>Sub-total</th>
+          <th style={ { padding: '0px 10px' } }>Sub-total</th>
           <th>Remover Item</th>
         </tr>
       </thead>

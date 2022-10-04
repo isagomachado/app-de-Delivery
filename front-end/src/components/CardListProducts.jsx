@@ -100,7 +100,7 @@ export default function Card() {
         {products
           && products.map((prod) => (
             <div
-              key={prod.id}
+              key={ prod.id }
               className="card-container"
             >
               <div className="img-container">
@@ -121,12 +121,12 @@ export default function Card() {
                   </p>
                 </div>
 
-                <label htmlFor={ `quantity-${prod.id}` } style={ { margin: "auto" } }>
+                <label htmlFor={ `quantity-${prod.id}` } style={ { margin: 'auto' } }>
                   <button
                     data-testid={ `customer_products__button-card-rm-item-${prod.id}` }
                     type="button"
-                    name={prod.name}
-                    style={ { backgroundColor: "#f68104"} }
+                    name={ prod.name }
+                    style={ { backgroundColor: '#f68104' } }
                     id={ prod.id }
                     value={ prod.price }
                     onClick={ (e) => decrementeQuantity(e) }
@@ -141,8 +141,8 @@ export default function Card() {
                     id={ prod.id }
                     className={ prod.price }
                     type="number"
-                    data-testid={`customer_products__input-card-quantity-${prod.id}`}
-                    style={ { width: "25px" } }
+                    data-testid={ `customer_products__input-card-quantity-${prod.id}` }
+                    style={ { width: '25px' } }
                   />
                   <button
                     data-testid={ `customer_products__button-card-add-item-${prod.id}` }
@@ -150,14 +150,14 @@ export default function Card() {
                     name={ prod.name }
                     id={ prod.id }
                     value={ prod.price }
-                    onClick={(e) => incrementeQuantity(e)}
-                    style={ { backgroundColor: "#f68104"} }
+                    onClick={ (e) => incrementeQuantity(e) }
+                    style={ { backgroundColor: '#f68104' } }
                   >
                     +
                   </button>
                 </label>
               </div>
-            
+
             </div>
           ))}
       </main>
